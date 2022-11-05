@@ -1,0 +1,449 @@
+---
+title: "Variations on a ggplot theme"
+subtitle: "Cara Thompson | NHS-R 2022 Conference | `r verbaliseR::prettify_date('2022-11-16', uk_or_us = 'UK')`"
+from: markdown+emoji
+format:
+  revealjs: 
+    transition: none
+    slide-number: false
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/light-logo.png
+    theme: cararquarto.scss
+    footer: |
+        Slides and recording: [cararthompson.com/talks/nhsr2022-ggplot-themes](https://cararthompson.com/talks/nhsr2022-ggplot-themes)
+filters:
+ - code-visibility
+ - lightbox
+lightbox: auto
+auto-animate: true
+title-slide-attributes:
+    data-background-image: "images/dark-background.png"
+    data-background-size: stretch
+    data-background-opacity: "1"
+    data-background-color: black
+---
+
+# Intro {visibility=hidden}
+
+## Hi there :wave: ! {transition="convex-in none-out"}
+
+
+```{r setup}
+knitr::opts_chunk$set(dev = "ragg_png")
+```
+
+
+👩 Cara Thompson
+
+::: {.fragment}
+👩‍💻 Freelance data consultant specialising in dataviz and "enhanced" reproducible outputs
+:::
+
+::: {.fragment}
+💙 Helping others maximise the impact of their expertise
+:::
+
+::: {.fragment}
+📢 Three reasons why you should apply a bespoke `ggplot` theme to your plots & how to do that
+:::
+
+
+## Three reasons for using a bespoke theme {auto-animate=true}
+
+### <span style=color:#28A569>#1</span> - Help orient your readers by adding text hierarchy
+
+### <span style=color:#28A569>#2</span> - Give everything some space to breathe
+
+### <span style=color:#28A569>#3</span> - Create create aesthetic consistency throughout your data project 
+
+
+## {auto-animate=true background=#2C3D4F}
+
+### <span style=color:#28A569>#1</span> - Help orient your readers by adding text hierarchy {.imitate-title}
+
+### <span style=color:#28A569>#2</span> - Give everything some space to breathe
+
+### <span style=color:#28A569>#3</span> - Create aesthetic consistency throughout your data project
+
+
+## <span style=color:#28A569>#1</span> - Help orient your readers by adding text hierarchy
+
+::: {.fragment}
+![](https://public-images.interaction-design.org/literature/articles/materials/0B2CNUOVN6c9pyGDHu5152HWB4dbdevsDWj0QBNK.jpg)
+:::
+
+<br>
+
+::: footer
+Find out more: [https://www.interaction-design.org/](https://www.interaction-design.org/literature/article/the-ux-designer-s-guide-to-typography)
+:::
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+```{r}
+#| echo: false
+#| output-location: column-fragment
+#| results: hide
+
+library(tidyverse)
+
+# Fonts
+systemfonts::register_font("BrandonText", plain = "C:/Windows/Fonts/BrandonText-Regular.ttf")
+systemfonts::register_variant("EnriquetaSB", family = "Enriqueta", weight = "semibold")
+
+basic_plot <- ggplot(palmerpenguins::penguins %>%
+                       filter(!is.na(flipper_length_mm)),
+                     aes(x = island, y = flipper_length_mm)) +
+  ggbeeswarm::geom_beeswarm(aes(fill = species,
+                                size = body_mass_g),
+                            shape = 21,
+                            colour = "#FFFFFF",
+                            alpha = 0.7) +
+  colorblindr::scale_fill_OkabeIto() +
+  guides(size = "none") +
+  labs(title = "Only on Dream do penguins of different species share\nsimilar flipper lengths",
+       subtitle = "Each column represents the penguin population of an island. Each dot is a penguin;
+the larger the dot, the heavier the penguin. The Adelie penguins live on all three
+islands. They share Biscoe with the longer-beflippered Gentoos, and Dream with 
+the equally-beflippered Chinstraps.",
+caption = "Data from {palmerpenguins}",
+x = "Island",
+y = "Flipper length", 
+fill = "")
+
+```
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+basic_plot
+
+```
+
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+A first easy tweak: `theme_minimal()`
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "2"
+basic_plot +
+  theme_minimal()
+
+```
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Create and apply different text colours
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+
+dark_text <- "#1A242F"
+
+monochromeR::generate_palette(
+  dark_text, 
+  "go_lighter",
+  n_colours = 5,
+  view_palette = TRUE
+)
+
+mid_text <-  monochromeR::generate_palette(
+  dark_text, "go_lighter",
+  n_colours = 5)[2]
+
+light_text <-  monochromeR::generate_palette(
+  dark_text, "go_lighter",
+  n_colours = 5)[3]
+
+```
+
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Create and apply different text colours
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+basic_plot +
+  theme_minimal()
+
+```
+
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Create and apply different text colours
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "3-4"
+basic_plot +
+  theme_minimal() +
+  theme(
+    text = element_text(colour = mid_text)
+  )
+```
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Create and apply different text colours
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "5"
+basic_plot +
+  theme_minimal() +
+  theme(
+    text = element_text(colour = mid_text),
+    plot.title = element_text(colour = dark_text)
+  )
+```
+
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Create and apply different text colours
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "6-7"
+basic_plot +
+  theme_minimal() +
+  theme(
+    text = element_text(colour = mid_text),
+    plot.title = element_text(colour = dark_text),
+    axis.text.x = element_text(colour = mid_text),
+    axis.text.y = element_text(colour = light_text)
+  )
+```
+
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Add your own fonts
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "5,7"
+basic_plot +
+  theme_minimal() +
+  theme(
+    text = element_text(colour = mid_text,
+                        family = "BrandonText"),
+    plot.title = element_text(colour = dark_text,
+                              family = "EnriquetaSB"),
+    axis.text.x = element_text(colour = mid_text),
+    axis.text.y = element_text(colour = light_text)
+  )
+
+```
+
+::: footer
+Find out more: [yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/](https://yjunechoe.github.io/posts/2021-06-24-setting-up-and-debugging-custom-fonts/)
+:::
+
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {auto-animate=true}
+
+Change the text sizes (relative or absolute)
+
+```{r}
+#| echo: true
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "7-8,10,14|11,13"
+basic_plot +
+  theme_minimal() +
+  theme(text = element_text(colour = mid_text,
+                            family = "BrandonText"),
+        plot.title = element_text(colour = dark_text,
+                                  family = "EnriquetaSB",
+                                  size = rel(1.6)),
+        plot.subtitle = element_text(size = rel(1.1)),
+        axis.text.y = element_text(colour = light_text, 
+                                   size = rel(0.8)),
+        axis.title.y = element_text(size = 12),
+        axis.text.x = element_text(colour = mid_text,
+                                   size = 12),
+        plot.caption = element_text(size = rel(0.8))
+  )
+
+```
+
+## <span style=color:#28A569>#1</span> - Add text hierarchy {background=#2C3D4F}
+
+::: {.columns}
+
+::: {.column width=50%}
+
+```{r}
+#| fig-width: 7.1
+#| fig-height: 6.5
+basic_plot
+```
+
+:::
+
+::: {.column width=50%}
+
+```{r}
+#| fig-width: 7.1
+#| fig-height: 6.5
+basic_plot +
+  theme_minimal(base_size = 12) +
+  theme(text = element_text(colour = mid_text,
+                            family = "BrandonText"),
+        plot.title = element_text(colour = dark_text,
+                                  family = "EnriquetaSB",
+                                  size = rel(1.6)),
+        plot.subtitle = element_text(size = rel(1.1)),
+        axis.text.y = element_text(colour = light_text, 
+                                   size = rel(0.8)),
+        axis.title.y = element_text(size = 12),
+        axis.text.x = element_text(colour = mid_text,
+                                   size = 12),
+        plot.caption = element_text(size = rel(0.8)))
+
+```
+:::
+
+:::
+
+## {auto-animate=true background=#2C3D4F}
+
+### <span style=color:#28A569>#1</span> - Help orient your readers by adding text hierarchy {.imitate-title}
+
+### <span style=color:#28A569>#2</span> - Give everything some space to breathe
+
+### <span style=color:#28A569>#3</span> - Create aesthetic consistency throughout your data project
+
+
+# Part 2: Space to breathe {visibility=hidden}
+
+## {auto-animate=true background=#2C3D4F}
+
+### <span style=color:#28A569>#1</span> - Help orient your readers by adding text hierarchy {.faded-small}
+
+### <span style=color:#28A569>#2</span> - Give everything some space to breathe {.imitate-title}
+
+### <span style=color:#28A569>#3</span> - Create aesthetic consistency throughout your data project
+
+
+## <span style=color:#28A569>#2</span> - Give everything some space to breathe
+
+Steps coming soon...
+
+## <span style=color:#28A569>#2</span> - Give everything some space to breathe {background=#2C3D4F}
+
+::: {.columns}
+
+::: {.column width=50%}
+
+```{r}
+#| fig-width: 7.1
+#| fig-height: 6.5
+basic_plot +
+  theme_minimal(base_size = 12) +
+  theme(text = element_text(colour = mid_text,
+                            family = "BrandonText"),
+        plot.title = element_text(colour = dark_text,
+                                  family = "EnriquetaSB",
+                                  size = rel(1.6)),
+        plot.subtitle = element_text(size = rel(1.1)),
+        axis.text.y = element_text(colour = light_text, 
+                                   size = rel(0.8)),
+        axis.title.y = element_text(size = 12),
+        axis.text.x = element_text(colour = mid_text,
+                                   size = 12),
+        plot.caption = element_text(size = rel(0.8)))
+
+```
+:::
+
+
+::: {.column width=50%}
+
+```{r}
+#| echo: false
+#| output-location: column
+#| results: hide
+#| fig-width: 7.1
+#| fig-height: 6.5
+#| code-line-numbers: "7-8"
+basic_plot +
+  theme_minimal() +
+  theme(text = element_text(colour = mid_text,
+                            family = "BrandonText",
+                            lineheight = 1.1),
+        plot.title = element_text(colour = dark_text,
+                                  family = "EnriquetaSB",
+                                  size = rel(1.6),
+                                  margin = margin(12, 0, 8, 0)),
+        plot.subtitle = element_text(size = rel(1.1),
+                                     margin = margin(4, 0, 0, 0)),
+        axis.text.y = element_text(colour = light_text, 
+                                   size = rel(0.8)),
+        axis.title.y = element_text(size = 12,
+                                    margin = margin(0, 4, 0, 0)),
+        axis.text.x = element_text(colour = mid_text,
+                                   size = 12),
+        axis.title.x = element_blank(),
+        legend.position = "top",
+        legend.justification = 1,
+        panel.grid = element_line(colour = "#F3F4F5"),
+        plot.caption = element_text(size = rel(0.8),
+                                    margin = margin(8, 0, 0, 0)),
+        plot.margin = margin(0.25, 0.25, 0.25, 0.25,"cm")
+  )
+
+```
+
+::: 
+
+:::
+
+## <span style=color:#28A569>#3</span> - Create aesthetic consistency throughout your data project
+
+# Content coming soon!
