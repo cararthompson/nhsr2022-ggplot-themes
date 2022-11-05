@@ -12,7 +12,7 @@ format:
     logo: images/light-logo.png
     theme: cararquarto.scss
     footer: |
-        Slides and recording: [cararthompson.com/talks/nhsr2022-ggplot-themes](https://cararthompson.com/talks/nhsr2022-ggplot-themes)
+        Slides and full code: [cararthompson.com/talks/nhsr2022-ggplot-themes](https://cararthompson.com/talks/nhsr2022-ggplot-themes)
 filters:
  - code-visibility
  - lightbox
