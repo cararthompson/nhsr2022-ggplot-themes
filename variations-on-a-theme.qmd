@@ -1090,7 +1090,7 @@ All in the interest of effortless consistency - [R for the Rest of Us](rforthere
 
 All in the interest of effortless consistency - Misc `+ theme_nhsr_demo()`
 
-![](images/mics_demo.png)
+![](images/misc_demo.png)
 
 
 ## Three reasons for using a bespoke theme {auto-animate=true background=#2C3D4F}
