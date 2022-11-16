@@ -886,7 +886,7 @@ theme_nhsr_demo <- function(base_size = 12,
 
 ```
 ::: fragment
-` + ...` or `%+replace%`?
+` + ` or `%+replace% `?
 :::
 
 ::: footer
