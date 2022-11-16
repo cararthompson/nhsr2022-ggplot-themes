@@ -73,7 +73,7 @@ fill = "")
 :::
 
 ::: {.fragment}
-📢 Three reasons why you should use a bespoke `ggplot` theme & how to create one
+📢 Three reasons for using a bespoke `ggplot` theme & how to create one
 :::
 
 
