@@ -1116,18 +1116,19 @@ All in the interest of effortless consistency - Misc `+ theme_nhsr_demo()`
 :::
 
 
-## Three reasons for using a bespoke theme {auto-animate=true background=#2C3D4F}
+## {auto-animate=true background=#2C3D4F background-image=https://thumbs.gfycat.com/PerfumedDefinitiveChipmunk-size_restricted.gif}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 ### <span style=color:#28A569>#1</span> - Add text hierarchy to help orient your readers
 
 ### <span style=color:#28A569>#2</span> - Give everything some space to breathe
 
 ### <span style=color:#28A569>#3</span> - Effortlessly create aesthetic consistency throughout your data project
-
-<br>
-
-::: fragment
-### <span style=color:#28A569>Over to you</span>
-:::
 
 
