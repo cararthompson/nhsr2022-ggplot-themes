@@ -172,7 +172,7 @@ monochromeR::generate_palette(
 
 ```{r}
 #| echo: true
-#| code-line-numbers: "1-3|5-7"
+#| code-line-numbers: "1-3"
 mid_text <-  monochromeR::generate_palette(
   dark_text, "go_lighter",
   n_colours = 5)[2]
@@ -804,7 +804,7 @@ basic_plot +
 
 ## <span style=color:#28A569>#3</span> - Create aesthetic consistency {auto-animate=true}
 
-Package it up as a function
+"Don't repeat yourself" principle
 
 ```{r}
 #| echo: true
